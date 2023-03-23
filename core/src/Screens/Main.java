@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import static java.lang.System.currentTimeMillis;
+
 
 public class Main extends Game {
 
@@ -19,6 +21,8 @@ public class Main extends Game {
 	public BaseScreen baseScreen;
 	public MonstersCollection monsters;
 	public PlayerAvatar player;
+	public int frames;
+	public long time;
 
 	@Override
 	public void create () {
@@ -31,10 +35,13 @@ public class Main extends Game {
 		shapeRenderer = new ShapeRenderer();
 		font= new BitmapFont();
 		camera=new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		camera.position.set((int)(Gdx.graphics.getWidth()/4),(int)(Gdx.graphics.getHeight()/4),0);
+		camera.position.set(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/4,0);
 		camera.update();
 		setScreen(mainScreen);
 		shapeRenderer.setProjectionMatrix(camera.combined);
+		frames = 0;
+		time = currentTimeMillis();
+		System.out.println("initial time: " + currentTimeMillis());
 	}
 	
 	@Override

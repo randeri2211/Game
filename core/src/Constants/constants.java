@@ -1,8 +1,8 @@
 package Constants;
 
 public class constants {
-    private static final int WIDTH = 80;
-    private static final int HEIGHT = 80;
+    private static final int WIDTH = 100;
+    private static final int HEIGHT = 100;
 
     private static final int size = 40;
 

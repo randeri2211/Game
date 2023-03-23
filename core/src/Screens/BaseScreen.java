@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import static Constants.constants.*;
+import static java.lang.System.currentTimeMillis;
 
 public class BaseScreen extends ScreenAdapter {
     Main game;
@@ -18,11 +19,11 @@ public class BaseScreen extends ScreenAdapter {
     Stage stage;
     Table table;
 
-    int[] player_pos = {Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2};
+    public float[] player_pos = {Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2};
 
     public BaseScreen(Main _game){
         this.game=_game;
-        base = new Base(getWIDTH(),getHEIGHT(),game);
+        base = new Base(getWIDTH(),getHEIGHT(),game,this);
         stage = new Stage();
         table = new Table();
         table.setFillParent(true);
@@ -40,7 +41,7 @@ public class BaseScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
-        int distance = 30;
+        float distance = 5*getTileSize()*delta;
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
             if(player_pos[1] + distance < getHEIGHT() * getTileSize()){
                 player_pos[1]+=distance;
@@ -98,6 +99,12 @@ public class BaseScreen extends ScreenAdapter {
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             game.setScreen(game.mainScreen);
+        }
+        game.frames+=1;
+        if (currentTimeMillis() - game.time >= 1000){
+            game.time = currentTimeMillis();
+            System.out.println("frames:" + game.frames);
+            game.frames = 0;
         }
         base.render();
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
