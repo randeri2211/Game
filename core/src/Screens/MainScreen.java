@@ -61,5 +61,6 @@ public class MainScreen extends ScreenAdapter {
     @Override
     public void hide(){
         Gdx.input.setInputProcessor(null);
+        stage.dispose();
     }
 }

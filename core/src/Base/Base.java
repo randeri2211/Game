@@ -68,7 +68,7 @@ public class Base {
     }
 
 
-    public void createTile(Vector2 position, Tile tile)
+    public boolean createTile(Vector2 position, Tile tile)
     {
         for(int y = 0;y < tile.placeMask.length;y++)
         {
@@ -78,7 +78,7 @@ public class Base {
                 tiles[(int) (position.y / getTileSize()) + y][(int) (position.x / getTileSize()) + x] != null &&
                 !tiles[(int) (position.y / getTileSize()) + y][(int) (position.x / getTileSize()) + x].placeable)
                 {
-                    return;
+                    return false;
                 }
             }
         }
@@ -91,5 +91,6 @@ public class Base {
                 }
             }
         }
+        return true;
     }
 }

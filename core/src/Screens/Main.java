@@ -29,6 +29,7 @@ public class Main extends Game {
 	public void create () {
 		mainScreen = new MainScreen(this);
 		baseScreen = new BaseScreen(this);
+		dungeonScreen = new DungeonScreen(this);
 		monsters = new MonstersCollection(this);
 		player= new PlayerAvatar(this);
 		System.out.println("Width: " + Gdx.graphics.getWidth() + "\nHeight: " + Gdx.graphics.getHeight());
@@ -36,7 +37,7 @@ public class Main extends Game {
 		shapeRenderer = new ShapeRenderer();
 		font= new BitmapFont();
 		camera=new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		camera.position.set(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/4,0);
+		camera.position.set(Gdx.graphics.getWidth() >> 2, Gdx.graphics.getHeight() >> 2,0);
 		camera.update();
 		setScreen(mainScreen);
 		shapeRenderer.setProjectionMatrix(camera.combined);

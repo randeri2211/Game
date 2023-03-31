@@ -18,7 +18,7 @@ public class Tile {
         game = _game;
         placeable = true;
         color = Color.WHITE;
-        placeMask =new boolean[][]{{true}};
+        placeMask = new boolean[][]{{true}};
     }
 
     public void render(){
@@ -41,4 +41,9 @@ public class Tile {
         }
 
     }
+
+    public void setPosition(float x,float y){
+        position = new Vector2(x,y);
+    }
+
 }
