@@ -5,10 +5,22 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 
 public class MainScreen extends ScreenAdapter {
     Main game;
+
+    private Skin skin;
+    private Stage stage;
+    private Table root;
+    boolean moveScreen= false;
 
     public MainScreen(Main _game){
         game= _game;
@@ -16,27 +28,34 @@ public class MainScreen extends ScreenAdapter {
 
     @Override
     public void show(){
-        Gdx.input.setInputProcessor(new InputAdapter(){
-            public boolean keyDown(int keyCode){
-                if(keyCode== Input.Keys.NUM_1){
-                    game.setScreen(game.baseScreen);
-                }
-                if(keyCode== Input.Keys.ESCAPE){
-                    game.setScreen(game.baseScreen);
-                }
-                return true;
+        skin = new Skin(Gdx.files.internal("metal/skin/metal-ui.json"));
+
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+
+        root = new Table();
+        root.setFillParent(true);
+        TextButton textButton = new TextButton("Base", skin);
+        textButton.addListener( new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                moveScreen = true;
             }
         });
+        root.add(textButton);
+        stage.addActor(root);
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0,1,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.begin();
-        game.font.getData().setScale(3);
-        game.font.draw(game.batch,"Click 1 For BaseScreen",Gdx.graphics.getWidth()*.25f,Gdx.graphics.getHeight()*.5f);
-        game.batch.end();
+        stage.act();
+        stage.draw();
+        if(moveScreen){
+            game.setScreen(game.baseScreen);
+            moveScreen=false;
+        }
     }
 
     @Override

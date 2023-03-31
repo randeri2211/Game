@@ -19,6 +19,7 @@ public class Main extends Game {
 	public BitmapFont font;
 	public MainScreen mainScreen;
 	public BaseScreen baseScreen;
+	public DungeonScreen dungeonScreen;
 	public MonstersCollection monsters;
 	public PlayerAvatar player;
 	public int frames;
