@@ -33,7 +33,7 @@ public class Base {
         }
         Vector2 v = new Vector2(2* getTileSize(),2* getTileSize());
         createTile(v,new Building1(v,game));
-        Vector2 v2 = new Vector2(15* getTileSize(),2* getTileSize());
+        Vector2 v2 = new Vector2(2* getTileSize(),3* getTileSize());
         createTile(v2,new Building2(v2,game));
         System.out.println(tiles[3][3].placeable);
     }
@@ -43,8 +43,8 @@ public class Base {
         int maxX = floor(getWIDTH() - (game.camera.viewportWidth / 2 / getTileSize()));
         int minY = ceil(game.camera.viewportHeight / getTileSize() / 2);
         int maxY = floor(getHEIGHT() - (game.camera.viewportHeight / 2 / getTileSize()));
-        int currentPosX = floor(baseScreen.player_pos[0] / getTileSize());
-        int currentPosY = floor(baseScreen.player_pos[1] / getTileSize());
+        int currentPosX = floor(game.player.player_pos[0] / getTileSize());
+        int currentPosY = floor(game.player.player_pos[1] / getTileSize());
         if (currentPosX < minX){
             currentPosX = minX;
         }else if(currentPosX > maxX){

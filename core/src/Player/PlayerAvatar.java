@@ -4,6 +4,8 @@ package Player;
 import Screens.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import static Constants.constants.*;
@@ -11,15 +13,15 @@ import static Constants.constants.getTileSize;
 
 public class PlayerAvatar {
     Main game;
-    int[] player_pos = {Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2};
+    public float[] player_pos = {(Gdx.graphics.getWidth() >> 1), (Gdx.graphics.getHeight() >> 1)};
 
     public PlayerAvatar(Main _game){
         game= _game;
     }
 
     public void show(){
-        player_pos[0] = Gdx.graphics.getWidth()/2;
-        player_pos[1] = Gdx.graphics.getHeight()/2;
+        player_pos[0] = Gdx.graphics.getWidth() >> 1;
+        player_pos[1] = Gdx.graphics.getHeight() >> 1;
         game.camera.position.set((float)(Gdx.graphics.getWidth()/2),(float)(Gdx.graphics.getHeight()/2),0);
         game.camera.update();
         game.shapeRenderer.setProjectionMatrix(game.camera.combined);
@@ -27,8 +29,7 @@ public class PlayerAvatar {
 
 
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0, 0);
-        int distance = 30;
+        float distance = 5*getTileSize()*delta;
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             if (player_pos[1] + distance < getHEIGHT() * getTileSize()) {
                 player_pos[1] += distance;
@@ -83,5 +84,11 @@ public class PlayerAvatar {
                 game.camera.position.x = getWIDTH() * getTileSize() - game.camera.viewportWidth / 2;
             }
         }
+        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        game.shapeRenderer.setColor(Color.RED);
+        game.shapeRenderer.circle(player_pos[0],player_pos[1], getTileSize() >> 1);
+        game.shapeRenderer.end();
+        game.camera.update();
+        game.shapeRenderer.setProjectionMatrix(game.camera.combined);
     }
 }

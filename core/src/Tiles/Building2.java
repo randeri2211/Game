@@ -10,7 +10,7 @@ public class Building2 extends Tile{
         super(_position, _game);
         placeable = false;
         color = Color.YELLOW;
-        placeMask = new boolean[][]{{false, true,true},
+        placeMask = new boolean[][]{{false, true,false},
                                     {true, true,true},
                                     {false, true,false}};
     }

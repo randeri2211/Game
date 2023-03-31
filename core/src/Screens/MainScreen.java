@@ -21,6 +21,9 @@ public class MainScreen extends ScreenAdapter {
                 if(keyCode== Input.Keys.NUM_1){
                     game.setScreen(game.baseScreen);
                 }
+                if(keyCode== Input.Keys.ESCAPE){
+                    game.setScreen(game.baseScreen);
+                }
                 return true;
             }
         });
